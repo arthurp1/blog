@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  include includes/_header.pug
+  body
+    .container
+      .row
+        .col.s12
+        ul
+          each message in messages
+            li.row
+              .col.s12.m6
+                ul.collection
+                  li.collection-item.avatar
+                    img(src='http://lorempixel.com/300/200/nature/' +message.id)
+                    .title #{message.title}
+                    p #{message.text}
+                    a(href='/user/'+ message.user.id) By #{message.user.user}
+                    p.time #{moment().startOf(message.createdAt).fromNow()}
+                    a.secondary-content(href='#!')
+                  form#comment_form.comment_form.collection-item
+                    img.circle.profile_img(src='http://lorempixel.com/50/50/people/' + user.id)
+                    input.message_id(type="hidden", name="messageId", value=message.id)
+                    input.comment_input(name='comment', placeholder='Write a comment..')
+                  each comment in message.comments
+                    .collection-item.comment-item
+                      p #{comment.userId} #{comment.comment}
+                      p.time #{moment().startOf(comment.createdAt).fromNow()}
